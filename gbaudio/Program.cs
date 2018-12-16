@@ -12,11 +12,12 @@ namespace gbaudio
 
         static void Main(string[] args)
         {
-            Stopwatch stopwatch = Stopwatch.StartNew();
+            Stopwatch stopwatch = new Stopwatch();
 
             using (WaveFileWriter writer = new WaveFileWriter(File.Open("output.wav", FileMode.Create), new WaveFormat(SampleRate, 16, 2)))
             {
-                //double sampleCounter = 0.0;
+                stopwatch.Start();
+
                 double updateClock = 0;
                 uint updateCycles = 0;
 
@@ -58,9 +59,10 @@ namespace gbaudio
 
                     updateClock -= updateCycles;
                 }
+
+                stopwatch.Stop();
             }
 
-            stopwatch.Stop();
 
             Console.WriteLine("Generated in {0} ms", stopwatch.ElapsedMilliseconds);
         }
